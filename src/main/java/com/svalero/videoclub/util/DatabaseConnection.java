@@ -11,7 +11,7 @@ public class DatabaseConnection {
     public static DataSource getDataSource() throws SQLException {
         if (dataSource == null) {
             MariaDbPoolDataSource pool = new MariaDbPoolDataSource();
-            pool.setUrl("jdbc:mariadb://localhost:3306/videoclub");
+            pool.setUrl("jdbc:mariadb://localhost:3306/videoclub?restrictedAuth=mysql_native_password");
             pool.setUser("root");
             pool.setPassword("123456");
             dataSource = pool;
