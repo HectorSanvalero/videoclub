@@ -34,6 +34,7 @@
         <td><%= e.getEmail() %></td>
         <td><%= e.getRol() %></td>
         <td>
+            <a href="<%= request.getContextPath() %>/empleados?action=view&id=<%= e.getId() %>" class="btn btn-secondary">Ver</a>
             <a href="<%= request.getContextPath() %>/empleados?action=edit&id=<%= e.getId() %>" class="btn btn-primary">Editar</a>
             <a href="<%= request.getContextPath() %>/empleados?action=eliminar&id=<%= e.getId() %>" class="btn btn-danger"
                onclick="return confirm('¿Estás seguro de que deseas eliminar este empleado?')">Eliminar</a>

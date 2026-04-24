@@ -42,11 +42,13 @@ public class AlquilerServlet extends HttpServlet {
 
                 case "search":
                     String estado = request.getParameter("estado") != null ? request.getParameter("estado") : "";
-                    List<Alquiler> resultados = alquilerDao.search(estado);
+                    String fechaInicio = request.getParameter("fechaInicio") != null ? request.getParameter("fechaInicio") : "";
+                    List<Alquiler> resultados = alquilerDao.search(estado, fechaInicio);
                     request.setAttribute("alquileres", resultados);
                     request.setAttribute("peliculas", peliculaDao.findAll());
                     request.setAttribute("clientes", clienteDao.findAll());
                     request.setAttribute("estado", estado);
+                    request.setAttribute("fechaInicio", fechaInicio);
                     request.getRequestDispatcher("/list-alquileres.jsp").forward(request, response);
                     break;
 

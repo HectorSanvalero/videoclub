@@ -30,6 +30,13 @@ public class EmpleadoServlet extends HttpServlet {
                     request.getRequestDispatcher("/form-empleado.jsp").forward(request, response);
                     break;
 
+                case "view":
+                    int idView = Integer.parseInt(request.getParameter("id"));
+                    Empleado empleado = empleadoDao.findById(idView);
+                    request.setAttribute("empleado", empleado);
+                    request.getRequestDispatcher("/view-empleado.jsp").forward(request, response);
+                    break;
+
                 case "edit":
                     int idEdit = Integer.parseInt(request.getParameter("id"));
                     Empleado empleadoEdit = empleadoDao.findById(idEdit);

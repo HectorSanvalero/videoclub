@@ -72,10 +72,11 @@ public class AlquilerDao {
         }
     }
 
-    public List<Alquiler> search(String estado) {
+    public List<Alquiler> search(String estado, String fechaInicio) {
         return jdbi.withHandle(handle ->
-                handle.createQuery("SELECT * FROM alquiler WHERE estado LIKE :estado")
+                handle.createQuery("SELECT * FROM alquiler WHERE estado LIKE :estado AND (fecha_inicio = :fechaInicio OR :fechaInicio IS NULL)")
                         .bind("estado", "%" + estado + "%")
+                        .bind("fechaInicio", fechaInicio.isEmpty() ? null : java.time.LocalDate.parse(fechaInicio))
                         .mapToBean(Alquiler.class)
                         .list()
         );

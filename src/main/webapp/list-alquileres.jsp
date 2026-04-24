@@ -29,6 +29,8 @@
             <option value="activo" <%= "activo".equals(request.getAttribute("estado")) ? "selected" : "" %>>Activo</option>
             <option value="devuelto" <%= "devuelto".equals(request.getAttribute("estado")) ? "selected" : "" %>>Devuelto</option>
         </select>
+        <input type="date" name="fechaInicio"
+               value="<%= request.getAttribute("fechaInicio") != null ? request.getAttribute("fechaInicio") : "" %>">
         <button type="submit" class="btn btn-secondary">Buscar</button>
         <a href="<%= request.getContextPath() %>/alquileres" class="btn btn-danger">Limpiar</a>
     </form>
