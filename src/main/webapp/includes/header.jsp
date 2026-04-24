@@ -6,6 +6,7 @@
         return;
     }
     String rol = (String) sesion.getAttribute("rol");
+    com.svalero.videoclub.domain.Empleado empleadoActual = (com.svalero.videoclub.domain.Empleado) sesion.getAttribute("empleado");
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -18,6 +19,14 @@
 <body>
 <nav>
     <a href="<%= request.getContextPath() %>/peliculas"><strong>🎬 Videoclub</strong></a>
+
+    <div style="display:flex; align-items:center; gap:8px;">
+        <span style="color:#eee;">👤 <%= empleadoActual.getNombre() %> <%= empleadoActual.getApellidos() %></span>
+        <span style="color:<%= "admin".equals(rol) ? "#e94560" : "#4a9eff" %>; font-size:0.85rem;">
+            (<%= "admin".equals(rol) ? "Admin" : "Empleado" %>)
+        </span>
+    </div>
+
     <div>
         <a href="<%= request.getContextPath() %>/peliculas">Películas</a>
         <a href="<%= request.getContextPath() %>/clientes">Clientes</a>

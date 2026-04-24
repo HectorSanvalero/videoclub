@@ -39,14 +39,24 @@ public class EmpleadoServlet extends HttpServlet {
 
                 case "eliminar":
                     int idEliminar = Integer.parseInt(request.getParameter("id"));
-                    boolean eliminado = empleadoDao.eliminar(idEliminar);
-                    if (!eliminado) {
-                        request.setAttribute("error", "Imposible eliminar. Existen alquileres vinculados a este empleado.");
+                    com.svalero.videoclub.domain.Empleado empleadoSesion =
+                            (com.svalero.videoclub.domain.Empleado) request.getSession().getAttribute("empleado");
+
+                    if (empleadoSesion.getId() == idEliminar) {
+                        request.setAttribute("error", "No puedes eliminar el empleado que está conectado actualmente.");
                         List<Empleado> empleadosError = empleadoDao.findAll();
                         request.setAttribute("empleados", empleadosError);
                         request.getRequestDispatcher("/list-empleados.jsp").forward(request, response);
                     } else {
-                        response.sendRedirect(request.getContextPath() + "/empleados");
+                        boolean eliminado = empleadoDao.eliminar(idEliminar);
+                        if (!eliminado) {
+                            request.setAttribute("error", "Imposible eliminar. Existen alquileres vinculados a este empleado.");
+                            List<Empleado> empleadosError = empleadoDao.findAll();
+                            request.setAttribute("empleados", empleadosError);
+                            request.getRequestDispatcher("/list-empleados.jsp").forward(request, response);
+                        } else {
+                            response.sendRedirect(request.getContextPath() + "/empleados");
+                        }
                     }
                     break;
 
