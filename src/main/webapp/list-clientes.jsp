@@ -3,6 +3,10 @@
 <%@ page import="com.svalero.videoclub.domain.Cliente" %>
 <%@ include file="includes/header.jsp" %>
 
+<% if (request.getAttribute("error") != null) { %>
+<p class="error"><%= request.getAttribute("error") %></p>
+<% } %>
+
 <h1>Clientes</h1>
 
 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
@@ -10,9 +14,12 @@
 
     <form action="<%= request.getContextPath() %>/clientes" method="get" style="display:flex; gap:10px;">
         <input type="hidden" name="action" value="search">
-        <input type="text" name="nombre" placeholder="Nombre" value="<%= request.getAttribute("nombre") != null ? request.getAttribute("nombre") : "" %>">
-        <input type="text" name="apellidos" placeholder="Apellidos" value="<%= request.getAttribute("apellidos") != null ? request.getAttribute("apellidos") : "" %>">
+        <input type="text" name="nombre" placeholder="Nombre"
+               value="<%= request.getAttribute("nombre") != null ? request.getAttribute("nombre") : "" %>">
+        <input type="text" name="apellidos" placeholder="Apellidos"
+               value="<%= request.getAttribute("apellidos") != null ? request.getAttribute("apellidos") : "" %>">
         <button type="submit" class="btn btn-secondary">Buscar</button>
+        <a href="<%= request.getContextPath() %>/clientes" class="btn btn-danger">Limpiar</a>
     </form>
 </div>
 
@@ -43,6 +50,8 @@
             <a href="<%= request.getContextPath() %>/clientes?action=edit&id=<%= c.getId() %>" class="btn btn-primary">Editar</a>
             <a href="<%= request.getContextPath() %>/clientes?action=delete&id=<%= c.getId() %>" class="btn btn-danger"
                onclick="return confirm('¿Dar de baja este cliente?')">Baja</a>
+            <a href="<%= request.getContextPath() %>/clientes?action=eliminar&id=<%= c.getId() %>" class="btn btn-danger"
+               onclick="return confirm('¿Estás seguro de que deseas eliminar este cliente?')">Eliminar</a>
         </td>
     </tr>
     <%

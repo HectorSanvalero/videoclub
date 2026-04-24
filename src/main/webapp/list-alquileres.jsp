@@ -6,6 +6,10 @@
 <%@ page import="com.svalero.videoclub.domain.Cliente" %>
 <%@ include file="includes/header.jsp" %>
 
+<% if (request.getAttribute("error") != null) { %>
+<p class="error"><%= request.getAttribute("error") %></p>
+<% } %>
+
 <%
     List<Alquiler> alquileres = (List<Alquiler>) request.getAttribute("alquileres");
     List<Pelicula> peliculas = (List<Pelicula>) request.getAttribute("peliculas");
@@ -70,6 +74,9 @@
                class="btn btn-secondary"
                onclick="return confirm('¿Marcar como devuelto?')">Devolver</a>
             <% } %>
+            <a href="<%= request.getContextPath() %>/alquileres?action=eliminar&id=<%= a.getId() %>"
+               class="btn btn-danger"
+               onclick="return confirm('¿Estás seguro de que deseas eliminar este alquiler?')">Eliminar</a>
         </td>
     </tr>
     <%

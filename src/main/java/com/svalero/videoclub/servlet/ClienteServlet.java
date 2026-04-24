@@ -50,6 +50,19 @@ public class ClienteServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/clientes");
                     break;
 
+                case "eliminar":
+                    int idEliminar = Integer.parseInt(request.getParameter("id"));
+                    boolean eliminado = clienteDao.eliminar(idEliminar);
+                    if (!eliminado) {
+                        request.setAttribute("error", "Imposible eliminar. Existen alquileres vinculados a este cliente.");
+                        List<Cliente> clientesError = clienteDao.findAll();
+                        request.setAttribute("clientes", clientesError);
+                        request.getRequestDispatcher("/list-clientes.jsp").forward(request, response);
+                    } else {
+                        response.sendRedirect(request.getContextPath() + "/clientes");
+                    }
+                    break;
+
                 case "search":
                     String nombre = request.getParameter("nombre") != null ? request.getParameter("nombre") : "";
                     String apellidos = request.getParameter("apellidos") != null ? request.getParameter("apellidos") : "";

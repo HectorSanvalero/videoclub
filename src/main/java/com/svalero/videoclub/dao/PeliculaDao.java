@@ -91,4 +91,17 @@ public class PeliculaDao {
                         .list()
         );
     }
+
+    public boolean eliminar(int id) {
+        try {
+            jdbi.useHandle(handle ->
+                    handle.createUpdate("DELETE FROM pelicula WHERE id = :id")
+                            .bind("id", id)
+                            .execute()
+            );
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

@@ -3,6 +3,10 @@
 <%@ page import="com.svalero.videoclub.domain.Empleado" %>
 <%@ include file="includes/header.jsp" %>
 
+<% if (request.getAttribute("error") != null) { %>
+<p class="error"><%= request.getAttribute("error") %></p>
+<% } %>
+
 <h1>Empleados</h1>
 
 <div style="margin-bottom:20px;">
@@ -31,6 +35,8 @@
         <td><%= e.getRol() %></td>
         <td>
             <a href="<%= request.getContextPath() %>/empleados?action=edit&id=<%= e.getId() %>" class="btn btn-primary">Editar</a>
+            <a href="<%= request.getContextPath() %>/empleados?action=eliminar&id=<%= e.getId() %>" class="btn btn-danger"
+               onclick="return confirm('¿Estás seguro de que deseas eliminar este empleado?')">Eliminar</a>
         </td>
     </tr>
     <%

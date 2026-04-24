@@ -3,6 +3,10 @@
 <%@ page import="com.svalero.videoclub.domain.Pelicula" %>
 <%@ include file="includes/header.jsp" %>
 
+<% if (request.getAttribute("error") != null) { %>
+<p class="error"><%= request.getAttribute("error") %></p>
+<% } %>
+
 <h1>Películas</h1>
 
 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
@@ -53,6 +57,8 @@
             <a href="<%= request.getContextPath() %>/peliculas?action=alta&id=<%= p.getId() %>" class="btn btn-primary"
                onclick="return confirm('¿Dar de alta esta película?')">Alta</a>
             <% } %>
+            <a href="<%= request.getContextPath() %>/peliculas?action=eliminar&id=<%= p.getId() %>" class="btn btn-danger"
+               onclick="return confirm('¿Estás seguro de que deseas eliminar esta película?')">Eliminar</a>
         </td>
     </tr>
     <%

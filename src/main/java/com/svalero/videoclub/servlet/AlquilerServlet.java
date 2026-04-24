@@ -51,6 +51,21 @@ public class AlquilerServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/alquileres");
                     break;
 
+                case "eliminar":
+                    int idEliminar = Integer.parseInt(request.getParameter("id"));
+                    boolean eliminado = alquilerDao.eliminar(idEliminar);
+                    if (!eliminado) {
+                        request.setAttribute("error", "Imposible eliminar. No se ha podido eliminar este alquiler.");
+                        List<Alquiler> alquileresError = alquilerDao.findAll();
+                        request.setAttribute("alquileres", alquileresError);
+                        request.setAttribute("peliculas", peliculaDao.findAll());
+                        request.setAttribute("clientes", clienteDao.findAll());
+                        request.getRequestDispatcher("/list-alquileres.jsp").forward(request, response);
+                    } else {
+                        response.sendRedirect(request.getContextPath() + "/alquileres");
+                    }
+                    break;
+
                 default:
                     List<Alquiler> alquileres = alquilerDao.findAll();
                     request.setAttribute("alquileres", alquileres);

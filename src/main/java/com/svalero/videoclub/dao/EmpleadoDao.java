@@ -61,4 +61,17 @@ public class EmpleadoDao {
                         .execute()
         );
     }
+
+    public boolean eliminar(int id) {
+        try {
+            jdbi.useHandle(handle ->
+                    handle.createUpdate("DELETE FROM empleado WHERE id = :id")
+                            .bind("id", id)
+                            .execute()
+            );
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

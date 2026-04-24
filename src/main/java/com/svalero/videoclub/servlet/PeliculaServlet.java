@@ -56,6 +56,19 @@ public class PeliculaServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/peliculas");
                     break;
 
+                case "eliminar":
+                    int idEliminar = Integer.parseInt(request.getParameter("id"));
+                    boolean eliminado = peliculaDao.eliminar(idEliminar);
+                    if (!eliminado) {
+                        request.setAttribute("error", "Imposible eliminar. Existen alquileres vinculados a esta película.");
+                        List<Pelicula> peliculasError = peliculaDao.findAll();
+                        request.setAttribute("peliculas", peliculasError);
+                        request.getRequestDispatcher("/list-peliculas.jsp").forward(request, response);
+                    } else {
+                        response.sendRedirect(request.getContextPath() + "/peliculas");
+                    }
+                    break;
+
                 case "search":
                     String titulo = request.getParameter("titulo") != null ? request.getParameter("titulo") : "";
                     String genero = request.getParameter("genero") != null ? request.getParameter("genero") : "";

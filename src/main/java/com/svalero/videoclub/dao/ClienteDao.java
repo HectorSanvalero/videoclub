@@ -68,4 +68,17 @@ public class ClienteDao {
                         .list()
         );
     }
+
+    public boolean eliminar(int id) {
+        try {
+            jdbi.useHandle(handle ->
+                    handle.createUpdate("DELETE FROM cliente WHERE id = :id")
+                            .bind("id", id)
+                            .execute()
+            );
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
