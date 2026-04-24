@@ -11,4 +11,5 @@ public class Pelicula {
     private String director;
     private String imagen;
     private boolean disponible;
+    private int stock;
 }

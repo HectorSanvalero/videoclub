@@ -75,7 +75,14 @@ public class AlquilerServlet extends HttpServlet {
             alquiler.setIdPelicula(Integer.parseInt(request.getParameter("idPelicula")));
             alquiler.setIdCliente(Integer.parseInt(request.getParameter("idCliente")));
             alquiler.setIdEmpleado(((com.svalero.videoclub.domain.Empleado) session.getAttribute("empleado")).getId());
-            alquiler.setFechaInicio(LocalDate.now());
+
+            String fechaInicio = request.getParameter("fechaInicio");
+            String fechaDevolucion = request.getParameter("fechaDevolucion");
+
+            alquiler.setFechaInicio(LocalDate.parse(fechaInicio));
+            if (fechaDevolucion != null && !fechaDevolucion.isEmpty()) {
+                alquiler.setFechaDevolucion(LocalDate.parse(fechaDevolucion));
+            }
             alquiler.setEstado("activo");
 
             alquilerDao.save(alquiler);

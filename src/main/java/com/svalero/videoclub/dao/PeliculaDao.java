@@ -35,8 +35,8 @@ public class PeliculaDao {
 
     public void save(Pelicula pelicula) {
         jdbi.useHandle(handle ->
-                handle.createUpdate("INSERT INTO pelicula (titulo, genero, anyo, director, imagen, disponible) " +
-                                "VALUES (:titulo, :genero, :anyo, :director, :imagen, :disponible)")
+                handle.createUpdate("INSERT INTO pelicula (titulo, genero, anyo, director, imagen, disponible, stock) " +
+                                "VALUES (:titulo, :genero, :anyo, :director, :imagen, :disponible, :stock)")
                         .bindBean(pelicula)
                         .execute()
         );
@@ -45,7 +45,7 @@ public class PeliculaDao {
     public void update(Pelicula pelicula) {
         jdbi.useHandle(handle ->
                 handle.createUpdate("UPDATE pelicula SET titulo=:titulo, genero=:genero, anyo=:anyo, " +
-                                "director=:director, imagen=:imagen, disponible=:disponible WHERE id=:id")
+                                "director=:director, imagen=:imagen, disponible=:disponible, stock=:stock WHERE id=:id")
                         .bindBean(pelicula)
                         .execute()
         );

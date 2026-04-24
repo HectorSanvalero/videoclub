@@ -10,9 +10,12 @@
 
     <form action="<%= request.getContextPath() %>/peliculas" method="get" style="display:flex; gap:10px;">
         <input type="hidden" name="action" value="search">
-        <input type="text" name="titulo" placeholder="Título" value="<%= request.getAttribute("titulo") != null ? request.getAttribute("titulo") : "" %>">
-        <input type="text" name="genero" placeholder="Género" value="<%= request.getAttribute("genero") != null ? request.getAttribute("genero") : "" %>">
+        <input type="text" name="titulo" placeholder="Título"
+               value="<%= request.getAttribute("titulo") != null ? request.getAttribute("titulo") : "" %>">
+        <input type="text" name="genero" placeholder="Género"
+               value="<%= request.getAttribute("genero") != null ? request.getAttribute("genero") : "" %>">
         <button type="submit" class="btn btn-secondary">Buscar</button>
+        <a href="<%= request.getContextPath() %>/peliculas" class="btn btn-danger">Limpiar</a>
     </form>
 </div>
 
@@ -24,6 +27,7 @@
         <th>Año</th>
         <th>Director</th>
         <th>Disponible</th>
+        <th>Stock</th>
         <th>Acciones</th>
     </tr>
     <%
@@ -38,6 +42,7 @@
         <td><%= p.getAnyo() %></td>
         <td><%= p.getDirector() %></td>
         <td><%= p.isDisponible() ? "Sí" : "No" %></td>
+        <td><%= p.getStock() %></td>
         <td>
             <a href="<%= request.getContextPath() %>/peliculas?action=view&id=<%= p.getId() %>" class="btn btn-secondary">Ver</a>
             <a href="<%= request.getContextPath() %>/peliculas?action=edit&id=<%= p.getId() %>" class="btn btn-primary">Editar</a>

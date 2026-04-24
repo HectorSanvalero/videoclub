@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.time.LocalDate" %>
 <%@ page import="com.svalero.videoclub.domain.Alquiler" %>
 <%@ page import="com.svalero.videoclub.domain.Pelicula" %>
 <%@ page import="com.svalero.videoclub.domain.Cliente" %>
@@ -9,6 +10,7 @@
     List<Alquiler> alquileres = (List<Alquiler>) request.getAttribute("alquileres");
     List<Pelicula> peliculas = (List<Pelicula>) request.getAttribute("peliculas");
     List<Cliente> clientes = (List<Cliente>) request.getAttribute("clientes");
+    LocalDate hoy = LocalDate.now();
 %>
 
 <h1>Alquileres</h1>
@@ -45,13 +47,22 @@
                         break;
                     }
                 }
+
+                boolean retrasado = "activo".equals(a.getEstado())
+                        && a.getFechaDevolucion() != null
+                        && a.getFechaDevolucion().isBefore(hoy);
     %>
-    <tr>
+    <tr style="<%= retrasado ? "background-color:#3a0a0a;" : "" %>">
         <td><%= a.getId() %></td>
         <td><%= tituloPelicula %></td>
         <td><%= nombreCliente %></td>
         <td><%= a.getFechaInicio() %></td>
-        <td><%= a.getFechaDevolucion() != null ? a.getFechaDevolucion() : "-" %></td>
+        <td>
+            <%= a.getFechaDevolucion() != null ? a.getFechaDevolucion() : "-" %>
+            <% if (retrasado) { %>
+            <span style="color:#e94560; font-weight:bold;">⚠ RETRASO</span>
+            <% } %>
+        </td>
         <td><%= a.getEstado() %></td>
         <td>
             <% if ("activo".equals(a.getEstado())) { %>

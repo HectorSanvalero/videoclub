@@ -17,7 +17,7 @@ public class ClienteDao {
 
     public List<Cliente> findAll() {
         return jdbi.withHandle(handle ->
-                handle.createQuery("SELECT * FROM cliente")
+                handle.createQuery("SELECT * FROM cliente WHERE activo = 1")
                         .mapToBean(Cliente.class)
                         .list()
         );

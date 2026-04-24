@@ -88,6 +88,7 @@ public class PeliculaServlet extends HttpServlet {
             pelicula.setDirector(request.getParameter("director"));
             pelicula.setImagen(request.getParameter("imagen"));
             pelicula.setDisponible(true);
+            pelicula.setStock(Integer.parseInt(request.getParameter("stock")));
 
             if ("edit".equals(action)) {
                 pelicula.setId(Integer.parseInt(request.getParameter("id")));

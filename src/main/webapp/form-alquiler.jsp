@@ -50,6 +50,16 @@
             </select>
         </div>
 
+        <div class="form-group">
+            <label>Fecha de inicio</label>
+            <input type="date" name="fechaInicio" required>
+        </div>
+
+        <div class="form-group">
+            <label>Fecha de devolución prevista</label>
+            <input type="date" name="fechaDevolucion">
+        </div>
+
         <div style="display:flex; gap:10px;">
             <button type="submit" class="btn btn-primary">Crear alquiler</button>
             <a href="<%= request.getContextPath() %>/alquileres" class="btn btn-secondary">Cancelar</a>

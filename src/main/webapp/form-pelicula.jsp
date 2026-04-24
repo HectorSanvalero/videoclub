@@ -30,13 +30,16 @@
 
         <div class="form-group">
             <label>Año</label>
-            <input type="number" name="anyo"
+            <input type="number" name="anyo" min="1888" max="2099"
+                   onkeydown="return event.keyCode !== 69 && event.keyCode !== 187 && event.keyCode !== 189"
                    value="<%= esEdicion ? pelicula.getAnyo() : "" %>">
         </div>
 
         <div class="form-group">
             <label>Director</label>
             <input type="text" name="director"
+                   pattern="[A-Za-záéíóúÁÉÍÓÚüÜñÑ ]+"
+                   title="Solo letras y espacios"
                    value="<%= esEdicion ? pelicula.getDirector() : "" %>">
         </div>
 
@@ -44,6 +47,12 @@
             <label>Imagen (nombre del archivo)</label>
             <input type="text" name="imagen"
                    value="<%= esEdicion && pelicula.getImagen() != null ? pelicula.getImagen() : "" %>">
+        </div>
+
+        <div class="form-group">
+            <label>Stock (unidades disponibles)</label>
+            <input type="number" name="stock" min="0" required
+                   value="<%= esEdicion ? pelicula.getStock() : "1" %>">
         </div>
 
         <div style="display:flex; gap:10px;">

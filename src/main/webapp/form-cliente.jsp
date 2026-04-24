@@ -19,12 +19,16 @@
         <div class="form-group">
             <label>Nombre</label>
             <input type="text" name="nombre" required
+                   pattern="[A-Za-záéíóúÁÉÍÓÚüÜñÑ ]+"
+                   title="Solo letras y espacios"
                    value="<%= esEdicion ? cliente.getNombre() : "" %>">
         </div>
 
         <div class="form-group">
             <label>Apellidos</label>
             <input type="text" name="apellidos" required
+                   pattern="[A-Za-záéíóúÁÉÍÓÚüÜñÑ ]+"
+                   title="Solo letras y espacios"
                    value="<%= esEdicion ? cliente.getApellidos() : "" %>">
         </div>
 
@@ -36,7 +40,9 @@
 
         <div class="form-group">
             <label>Teléfono</label>
-            <input type="text" name="telefono"
+            <input type="tel" name="telefono"
+                   pattern="[0-9]+"
+                   title="Solo números"
                    value="<%= esEdicion ? cliente.getTelefono() : "" %>">
         </div>
 
