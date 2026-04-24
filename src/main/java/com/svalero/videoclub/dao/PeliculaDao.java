@@ -58,7 +58,13 @@ public class PeliculaDao {
                         .execute()
         );
     }
-
+    public void alta(int id) {
+        jdbi.useHandle(handle ->
+                handle.createUpdate("UPDATE pelicula SET disponible=1 WHERE id=:id")
+                        .bind("id", id)
+                        .execute()
+        );
+    }
     public List<Pelicula> search(String titulo, String genero) {
         return jdbi.withHandle(handle ->
                 handle.createQuery("SELECT * FROM pelicula WHERE titulo LIKE :titulo AND (genero = :genero OR :genero IS NULL)")

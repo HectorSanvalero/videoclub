@@ -46,8 +46,13 @@
         <td>
             <a href="<%= request.getContextPath() %>/peliculas?action=view&id=<%= p.getId() %>" class="btn btn-secondary">Ver</a>
             <a href="<%= request.getContextPath() %>/peliculas?action=edit&id=<%= p.getId() %>" class="btn btn-primary">Editar</a>
+            <% if (p.isDisponible()) { %>
             <a href="<%= request.getContextPath() %>/peliculas?action=delete&id=<%= p.getId() %>" class="btn btn-danger"
                onclick="return confirm('¿Dar de baja esta película?')">Baja</a>
+            <% } else { %>
+            <a href="<%= request.getContextPath() %>/peliculas?action=alta&id=<%= p.getId() %>" class="btn btn-primary"
+               onclick="return confirm('¿Dar de alta esta película?')">Alta</a>
+            <% } %>
         </td>
     </tr>
     <%

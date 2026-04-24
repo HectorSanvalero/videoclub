@@ -50,6 +50,12 @@ public class PeliculaServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/peliculas");
                     break;
 
+                case "alta":
+                    int idAlta = Integer.parseInt(request.getParameter("id"));
+                    peliculaDao.alta(idAlta);
+                    response.sendRedirect(request.getContextPath() + "/peliculas");
+                    break;
+
                 case "search":
                     String titulo = request.getParameter("titulo") != null ? request.getParameter("titulo") : "";
                     String genero = request.getParameter("genero") != null ? request.getParameter("genero") : "";
