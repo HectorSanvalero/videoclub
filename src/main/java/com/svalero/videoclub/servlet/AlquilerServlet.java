@@ -102,6 +102,7 @@ public class AlquilerServlet extends HttpServlet {
                 alquiler.setFechaDevolucion(LocalDate.parse(fechaDevolucion));
             }
             alquiler.setEstado("activo");
+            alquiler.setPrecio(Double.parseDouble(request.getParameter("precio")));
 
             alquilerDao.save(alquiler);
             peliculaDao.reducirStock(alquiler.getIdPelicula());

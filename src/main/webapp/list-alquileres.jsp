@@ -31,6 +31,7 @@
         <th>Fecha inicio</th>
         <th>Fecha devolución</th>
         <th>Estado</th>
+        <th>Precio</th>
         <th>Acciones</th>
     </tr>
     <%
@@ -68,6 +69,7 @@
             <% } %>
         </td>
         <td><%= a.getEstado() %></td>
+        <td><%= a.getPrecio() %> €</td>
         <td>
             <% if ("activo".equals(a.getEstado())) { %>
             <a href="<%= request.getContextPath() %>/alquileres?action=devolver&id=<%= a.getId() %>"

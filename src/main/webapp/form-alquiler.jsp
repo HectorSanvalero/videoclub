@@ -60,6 +60,11 @@
             <input type="date" name="fechaDevolucion">
         </div>
 
+        <div class="form-group">
+            <label>Precio (€)</label>
+            <input type="number" name="precio" step="0.01" min="0" required value="2.99">
+        </div>
+
         <div style="display:flex; gap:10px;">
             <button type="submit" class="btn btn-primary">Crear alquiler</button>
             <a href="<%= request.getContextPath() %>/alquileres" class="btn btn-secondary">Cancelar</a>

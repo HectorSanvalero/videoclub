@@ -12,4 +12,5 @@ public class Alquiler {
     private LocalDate fechaInicio;
     private LocalDate fechaDevolucion;
     private String estado;
+    private double precio;
 }

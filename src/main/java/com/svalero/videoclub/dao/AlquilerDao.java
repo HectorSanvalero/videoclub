@@ -44,8 +44,8 @@ public class AlquilerDao {
 
     public void save(Alquiler alquiler) {
         jdbi.useHandle(handle ->
-                handle.createUpdate("INSERT INTO alquiler (id_pelicula, id_cliente, id_empleado, fecha_inicio, fecha_devolucion, estado) " +
-                                "VALUES (:idPelicula, :idCliente, :idEmpleado, :fechaInicio, :fechaDevolucion, :estado)")
+                handle.createUpdate("INSERT INTO alquiler (id_pelicula, id_cliente, id_empleado, fecha_inicio, fecha_devolucion, estado, precio) " +
+                                "VALUES (:idPelicula, :idCliente, :idEmpleado, :fechaInicio, :fechaDevolucion, :estado, :precio)")
                         .bindBean(alquiler)
                         .execute()
         );
