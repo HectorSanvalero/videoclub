@@ -31,6 +31,7 @@ CREATE TABLE `alquiler` (
   `fecha_inicio` date NOT NULL,
   `fecha_devolucion` date DEFAULT NULL,
   `estado` varchar(20) NOT NULL DEFAULT 'activo',
+  `precio` decimal(5,2) DEFAULT 2.99,
   PRIMARY KEY (`id`),
   KEY `id_pelicula` (`id_pelicula`),
   KEY `id_cliente` (`id_cliente`),
@@ -38,7 +39,7 @@ CREATE TABLE `alquiler` (
   CONSTRAINT `1` FOREIGN KEY (`id_pelicula`) REFERENCES `pelicula` (`id`),
   CONSTRAINT `2` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id`),
   CONSTRAINT `3` FOREIGN KEY (`id_empleado`) REFERENCES `empleado` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,6 +48,9 @@ CREATE TABLE `alquiler` (
 
 LOCK TABLES `alquiler` WRITE;
 /*!40000 ALTER TABLE `alquiler` DISABLE KEYS */;
+INSERT INTO `alquiler` VALUES
+(7,1,2,4,'2026-04-08','2026-04-24','devuelto',2.99),
+(8,2,2,5,'2026-04-24','2026-05-02','activo',2.99);
 /*!40000 ALTER TABLE `alquiler` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,7 +70,7 @@ CREATE TABLE `cliente` (
   `activo` tinyint(1) DEFAULT 1,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,7 +81,8 @@ LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
 INSERT INTO `cliente` VALUES
 (1,'Carlos','Garcia Lopez','carlos@email.com','612345678',1),
-(2,'Maria','Martinez Ruiz','maria@email.com','698765432',1);
+(2,'Maria','Martinez Ruiz','maria@email.com','698765432',1),
+(5,'Francisco','Perez Cortés','Fcortes@email.com','654789098',1);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -97,7 +102,7 @@ CREATE TABLE `empleado` (
   `rol` varchar(20) NOT NULL DEFAULT 'empleado',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -107,8 +112,9 @@ CREATE TABLE `empleado` (
 LOCK TABLES `empleado` WRITE;
 /*!40000 ALTER TABLE `empleado` DISABLE KEYS */;
 INSERT INTO `empleado` VALUES
-(1,'Admin','Admin','admin@videoclub.com','1234','admin'),
-(2,'Juan','Lopez Perez','juan@videoclub.com','1234','empleado');
+(4,'Héctor','González Sánchez','hector@videoclub.com','1234','admin'),
+(5,'Admin',' ','admin@videoclub.com','1234','admin'),
+(6,'Adrian','Blasco Gutierrez','Adri@videoclub.com','1234','empleado');
 /*!40000 ALTER TABLE `empleado` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -127,8 +133,9 @@ CREATE TABLE `pelicula` (
   `director` varchar(100) DEFAULT NULL,
   `imagen` varchar(255) DEFAULT NULL,
   `disponible` tinyint(1) DEFAULT 1,
+  `stock` int(11) DEFAULT 1,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -138,9 +145,11 @@ CREATE TABLE `pelicula` (
 LOCK TABLES `pelicula` WRITE;
 /*!40000 ALTER TABLE `pelicula` DISABLE KEYS */;
 INSERT INTO `pelicula` VALUES
-(1,'El Padrino','Drama',1972,'Francis Ford Coppola',NULL,1),
-(2,'Pulp Fiction','Thriller',1994,'Quentin Tarantino',NULL,1),
-(3,'El Señor de los Anillos','Fantasia',2001,'Peter Jackson',NULL,0);
+(1,'El Padrino','Drama',1972,'Francis Ford Coppola','41WMFqes1iL._AC_.jpg',1,4),
+(2,'Pulp Fiction','Thriller',1994,'Quentin Tarantino','81IOViIosKL._AC_SL1500_.jpg',1,4),
+(3,'El Señor de los Anillos','Fantasia',2001,'Peter Jackson','6143TqGItiL._AC_SL1000_.jpg',1,6),
+(4,'Matrix','Ciencia Ficción',1999,'Hermanos Wachowski','043449_af.jpg',1,3),
+(7,'Interstellar','Ciencia Ficción',2014,'Christopher Nolan','91obuWzA3XL._AC_SL1500_.jpg',1,5);
 /*!40000 ALTER TABLE `pelicula` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -157,4 +166,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-04-18 21:33:24
+-- Dump completed on 2026-04-25  0:58:24
