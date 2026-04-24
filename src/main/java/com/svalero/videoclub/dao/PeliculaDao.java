@@ -84,9 +84,9 @@ public class PeliculaDao {
 
     public List<Pelicula> search(String titulo, String genero) {
         return jdbi.withHandle(handle ->
-                handle.createQuery("SELECT * FROM pelicula WHERE titulo LIKE :titulo AND (genero = :genero OR :genero IS NULL)")
+                handle.createQuery("SELECT * FROM pelicula WHERE titulo LIKE :titulo AND genero LIKE :genero")
                         .bind("titulo", "%" + titulo + "%")
-                        .bind("genero", genero.isEmpty() ? null : genero)
+                        .bind("genero", "%" + genero + "%")
                         .mapToBean(Pelicula.class)
                         .list()
         );
