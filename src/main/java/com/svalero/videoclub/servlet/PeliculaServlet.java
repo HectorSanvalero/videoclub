@@ -11,6 +11,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import jakarta.servlet.http.Part;
+
+@jakarta.servlet.annotation.MultipartConfig(
+        fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 1024 * 1024 * 10,
+        maxRequestSize = 1024 * 1024 * 15
+)
 
 @WebServlet("/peliculas")
 public class PeliculaServlet extends HttpServlet {
@@ -105,9 +112,23 @@ public class PeliculaServlet extends HttpServlet {
             pelicula.setGenero(request.getParameter("genero"));
             pelicula.setAnyo(Integer.parseInt(request.getParameter("anyo")));
             pelicula.setDirector(request.getParameter("director"));
-            pelicula.setImagen(request.getParameter("imagen"));
             pelicula.setDisponible(true);
             pelicula.setStock(Integer.parseInt(request.getParameter("stock")));
+
+            Part filePart = request.getPart("imagen");
+            if (filePart != null && filePart.getSize() > 0) {
+                String fileName = filePart.getSubmittedFileName();
+                String uploadPath = getServletContext().getRealPath("") + "icons" + java.io.File.separator;
+                java.io.File uploadDir = new java.io.File(uploadPath);
+                if (!uploadDir.exists()) uploadDir.mkdirs();
+                filePart.write(uploadPath + fileName);
+                pelicula.setImagen(fileName);
+            } else if ("edit".equals(action)) {
+                Pelicula peliculaExistente = peliculaDao.findById(Integer.parseInt(request.getParameter("id")));
+                pelicula.setImagen(peliculaExistente.getImagen());
+            } else {
+                pelicula.setImagen("");
+            }
 
             if ("edit".equals(action)) {
                 pelicula.setId(Integer.parseInt(request.getParameter("id")));

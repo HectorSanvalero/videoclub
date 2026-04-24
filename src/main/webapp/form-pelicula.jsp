@@ -10,7 +10,7 @@
 <h1><%= esEdicion ? "Editar película" : "Nueva película" %></h1>
 
 <div class="card">
-    <form action="<%= request.getContextPath() %>/peliculas" method="post">
+    <form action="<%= request.getContextPath() %>/peliculas" method="post" enctype="multipart/form-data">
         <input type="hidden" name="action" value="<%= esEdicion ? "edit" : "new" %>">
         <% if (esEdicion) { %>
         <input type="hidden" name="id" value="<%= pelicula.getId() %>">
@@ -44,9 +44,11 @@
         </div>
 
         <div class="form-group">
-            <label>Imagen (nombre del archivo)</label>
-            <input type="text" name="imagen"
-                   value="<%= esEdicion && pelicula.getImagen() != null ? pelicula.getImagen() : "" %>">
+            <label>Imagen</label>
+            <input type="file" name="imagen" accept="image/*">
+            <% if (esEdicion && pelicula.getImagen() != null && !pelicula.getImagen().isEmpty()) { %>
+            <p style="color:#aaa; font-size:0.85rem;">Imagen actual: <%= pelicula.getImagen() %></p>
+            <% } %>
         </div>
 
         <div class="form-group">
