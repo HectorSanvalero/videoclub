@@ -71,4 +71,13 @@ public class AlquilerDao {
             return false;
         }
     }
+
+    public List<Alquiler> search(String estado) {
+        return jdbi.withHandle(handle ->
+                handle.createQuery("SELECT * FROM alquiler WHERE estado LIKE :estado")
+                        .bind("estado", "%" + estado + "%")
+                        .mapToBean(Alquiler.class)
+                        .list()
+        );
+    }
 }

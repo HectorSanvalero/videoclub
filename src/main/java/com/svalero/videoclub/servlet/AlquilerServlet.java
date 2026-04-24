@@ -40,6 +40,16 @@ public class AlquilerServlet extends HttpServlet {
                     request.getRequestDispatcher("/form-alquiler.jsp").forward(request, response);
                     break;
 
+                case "search":
+                    String estado = request.getParameter("estado") != null ? request.getParameter("estado") : "";
+                    List<Alquiler> resultados = alquilerDao.search(estado);
+                    request.setAttribute("alquileres", resultados);
+                    request.setAttribute("peliculas", peliculaDao.findAll());
+                    request.setAttribute("clientes", clienteDao.findAll());
+                    request.setAttribute("estado", estado);
+                    request.getRequestDispatcher("/list-alquileres.jsp").forward(request, response);
+                    break;
+
                 case "devolver":
                     int idDevolver = Integer.parseInt(request.getParameter("id"));
                     Alquiler alquilerDevolver = alquilerDao.findById(idDevolver);

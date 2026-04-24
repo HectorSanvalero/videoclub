@@ -19,8 +19,19 @@
 
 <h1>Alquileres</h1>
 
-<div style="margin-bottom:20px;">
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
     <a href="<%= request.getContextPath() %>/alquileres?action=new" class="btn btn-primary">+ Nuevo alquiler</a>
+
+    <form action="<%= request.getContextPath() %>/alquileres" method="get" style="display:flex; gap:10px;">
+        <input type="hidden" name="action" value="search">
+        <select name="estado">
+            <option value="">Todos los estados</option>
+            <option value="activo" <%= "activo".equals(request.getAttribute("estado")) ? "selected" : "" %>>Activo</option>
+            <option value="devuelto" <%= "devuelto".equals(request.getAttribute("estado")) ? "selected" : "" %>>Devuelto</option>
+        </select>
+        <button type="submit" class="btn btn-secondary">Buscar</button>
+        <a href="<%= request.getContextPath() %>/alquileres" class="btn btn-danger">Limpiar</a>
+    </form>
 </div>
 
 <table>
