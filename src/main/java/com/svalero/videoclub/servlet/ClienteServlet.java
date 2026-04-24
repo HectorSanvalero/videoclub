@@ -50,6 +50,12 @@ public class ClienteServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/clientes");
                     break;
 
+                case "alta":
+                    int idAlta = Integer.parseInt(request.getParameter("id"));
+                    clienteDao.alta(idAlta);
+                    response.sendRedirect(request.getContextPath() + "/clientes");
+                    break;
+
                 case "eliminar":
                     int idEliminar = Integer.parseInt(request.getParameter("id"));
                     boolean eliminado = clienteDao.eliminar(idEliminar);

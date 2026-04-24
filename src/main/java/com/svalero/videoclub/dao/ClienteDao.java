@@ -17,7 +17,7 @@ public class ClienteDao {
 
     public List<Cliente> findAll() {
         return jdbi.withHandle(handle ->
-                handle.createQuery("SELECT * FROM cliente WHERE activo = 1")
+                handle.createQuery("SELECT * FROM cliente")
                         .mapToBean(Cliente.class)
                         .list()
         );
@@ -80,5 +80,13 @@ public class ClienteDao {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public void alta(int id) {
+        jdbi.useHandle(handle ->
+                handle.createUpdate("UPDATE cliente SET activo=1 WHERE id=:id")
+                        .bind("id", id)
+                        .execute()
+        );
     }
 }

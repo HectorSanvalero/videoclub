@@ -48,8 +48,13 @@
         <td>
             <a href="<%= request.getContextPath() %>/clientes?action=view&id=<%= c.getId() %>" class="btn btn-secondary">Ver</a>
             <a href="<%= request.getContextPath() %>/clientes?action=edit&id=<%= c.getId() %>" class="btn btn-primary">Editar</a>
+            <% if (c.isActivo()) { %>
             <a href="<%= request.getContextPath() %>/clientes?action=delete&id=<%= c.getId() %>" class="btn btn-danger"
                onclick="return confirm('¿Dar de baja este cliente?')">Baja</a>
+            <% } else { %>
+            <a href="<%= request.getContextPath() %>/clientes?action=alta&id=<%= c.getId() %>" class="btn btn-primary"
+               onclick="return confirm('¿Dar de alta este cliente?')">Alta</a>
+            <% } %>
             <a href="<%= request.getContextPath() %>/clientes?action=eliminar&id=<%= c.getId() %>" class="btn btn-danger"
                onclick="return confirm('¿Estás seguro de que deseas eliminar este cliente?')">Eliminar</a>
         </td>
