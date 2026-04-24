@@ -46,6 +46,8 @@ public class AlquilerServlet extends HttpServlet {
                     alquilerDevolver.setEstado("devuelto");
                     alquilerDevolver.setFechaDevolucion(LocalDate.now());
                     alquilerDao.update(alquilerDevolver);
+                    PeliculaDao peliculaDaoDevolver = new PeliculaDao();
+                    peliculaDaoDevolver.aumentarStock(alquilerDevolver.getIdPelicula());
                     response.sendRedirect(request.getContextPath() + "/alquileres");
                     break;
 
@@ -69,6 +71,7 @@ public class AlquilerServlet extends HttpServlet {
 
         try {
             AlquilerDao alquilerDao = new AlquilerDao();
+            PeliculaDao peliculaDao = new PeliculaDao();
             HttpSession session = request.getSession();
 
             Alquiler alquiler = new Alquiler();
@@ -86,6 +89,7 @@ public class AlquilerServlet extends HttpServlet {
             alquiler.setEstado("activo");
 
             alquilerDao.save(alquiler);
+            peliculaDao.reducirStock(alquiler.getIdPelicula());
             response.sendRedirect(request.getContextPath() + "/alquileres");
 
         } catch (SQLException e) {
