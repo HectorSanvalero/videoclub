@@ -56,12 +56,13 @@
 
         <div class="form-group">
             <label>Fecha de inicio</label>
-            <input type="date" name="fechaInicio" required>
+            <input type="date" name="fechaInicio" id="fechaInicio" required
+                   onchange="document.getElementById('fechaDevolucion').min = this.value">
         </div>
 
         <div class="form-group">
             <label>Fecha de devolución prevista</label>
-            <input type="date" name="fechaDevolucion">
+            <input type="date" name="fechaDevolucion" id="fechaDevolucion">
         </div>
 
         <div class="form-group">
