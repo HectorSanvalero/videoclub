@@ -68,7 +68,7 @@ public class PeliculaDao {
 
     public void reducirStock(int id) {
         jdbi.useHandle(handle ->
-                handle.createUpdate("UPDATE pelicula SET stock = stock - 1 WHERE id = :id")
+                handle.createUpdate("UPDATE pelicula SET stock = stock - 1 WHERE id = :id AND stock > 0")
                         .bind("id", id)
                         .execute()
         );

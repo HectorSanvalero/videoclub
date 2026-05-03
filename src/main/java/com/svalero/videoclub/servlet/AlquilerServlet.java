@@ -5,6 +5,7 @@ import com.svalero.videoclub.dao.ClienteDao;
 import com.svalero.videoclub.dao.EmpleadoDao;
 import com.svalero.videoclub.dao.PeliculaDao;
 import com.svalero.videoclub.domain.Alquiler;
+import com.svalero.videoclub.domain.Pelicula;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,10 +13,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+
 
 @WebServlet("/alquileres")
 public class AlquilerServlet extends HttpServlet {
@@ -101,8 +104,19 @@ public class AlquilerServlet extends HttpServlet {
             PeliculaDao peliculaDao = new PeliculaDao();
             HttpSession session = request.getSession();
 
+            int idPelicula = Integer.parseInt(request.getParameter("idPelicula"));
+            Pelicula pelicula = peliculaDao.findById(idPelicula);
+
+            if (pelicula.getStock() <= 0) {
+                request.setAttribute("error", "No hay stock disponible de esta película.");
+                request.setAttribute("peliculas", peliculaDao.findAll());
+                request.setAttribute("clientes", new com.svalero.videoclub.dao.ClienteDao().findAll());
+                request.getRequestDispatcher("/form-alquiler.jsp").forward(request, response);
+                return;
+            }
+
             Alquiler alquiler = new Alquiler();
-            alquiler.setIdPelicula(Integer.parseInt(request.getParameter("idPelicula")));
+            alquiler.setIdPelicula(idPelicula);
             alquiler.setIdCliente(Integer.parseInt(request.getParameter("idCliente")));
             alquiler.setIdEmpleado(((com.svalero.videoclub.domain.Empleado) session.getAttribute("empleado")).getId());
 
@@ -117,7 +131,7 @@ public class AlquilerServlet extends HttpServlet {
             alquiler.setPrecio(Double.parseDouble(request.getParameter("precio")));
 
             alquilerDao.save(alquiler);
-            peliculaDao.reducirStock(alquiler.getIdPelicula());
+            peliculaDao.reducirStock(idPelicula);
             response.sendRedirect(request.getContextPath() + "/alquileres");
 
         } catch (SQLException e) {

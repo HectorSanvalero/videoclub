@@ -4,6 +4,10 @@
 <%@ page import="com.svalero.videoclub.domain.Cliente" %>
 <%@ include file="includes/header.jsp" %>
 
+<% if (request.getAttribute("error") != null) { %>
+<p class="error"><%= request.getAttribute("error") %></p>
+<% } %>
+
 <%
     List<Pelicula> peliculas = (List<Pelicula>) request.getAttribute("peliculas");
     List<Cliente> clientes = (List<Cliente>) request.getAttribute("clientes");
